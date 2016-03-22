@@ -19,16 +19,18 @@
 
 <div id='map'></div>
 <script>
+  var startZoom = 12,
+    maxZoom = 17.5
   //max zoom level = 19 according to OSM
-  mapboxgl.accessToken = 'pk.eyJ1Ijoid3d5bWFrIiwiYSI6IkxEbENMZzgifQ.pxk3bdzd7n8h4pKzc9zozw';
+  mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhcmxvdHRlbGV6ZW1vcmUiLCJhIjoiY2lsd2RqNmc5MDBhZnZxbTZ1bnF3aGM5ciJ9.Y6wK7LPqcS7JE7odUeHAww';
   var bounds = [[-0.226, 51.744], [0.068, 51.855]];
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/emerald-v8', //stylesheet location
+    style: 'mapbox://styles/charlottelezemore/cilwemx2r0056ccm3dhbe1p79', //stylesheet location
     center: [-0.079, 51.80], // starting position
-    zoom: 12, // starting zoom
-    minZoom: 12,
-    maxZoom: 18,
+    zoom: startZoom, // starting zoom
+    minZoom: startZoom,
+    maxZoom: maxZoom,
     pitch: 0,
     bearing: 0,
     maxBounds: bounds
@@ -36,9 +38,9 @@
 
   map.on('zoom', function(e) {
     var z = e.target.getZoom();
-    if (z >= 12) {
-      var pitch = Math.sqrt((z-12)/(18 -12)) * 80;
-      var bearing = Math.sqrt((z-12)/(18 -12)) * 100;
+    if (z >= startZoom) {
+      var pitch = Math.sqrt((z-startZoom)/(maxZoom -startZoom)) * 80;
+      var bearing = Math.sqrt((z-startZoom)/(maxZoom -startZoom)) * 100;
       map.setPitch(pitch).setBearing(bearing);
     } else {
       map.setPitch(0)
